@@ -73,9 +73,9 @@ if(!isset($_SESSION['activeUser']))
    <div class="container-fluid mt-4">
    	<h4>Suggested Friends</h4>
     <form method="POST">
-      <input type="text" id="activeUserName" name="" value="<?php echo $activerUsername; ?>">
-        <input type="text" id="activeUserID" name="" value="<?php echo $activeUserID;  ?>">
-        <input type="text" id="selectedFriend" name="">
+      <input type="text" id="activeUserName" name="activeUserName" value="<?php echo $activerUsername; ?>">
+        <input type="text" id="activeUserID" name="activeUserID" value="<?php echo $activeUserID;  ?>">
+        <input type="text" id="selectedFriend" name="selectedFriend" oninput="insertData()">
    		<div class="row row-cols-1 row-cols-md-6 g-4">
 
    		<?php 
@@ -87,11 +87,11 @@ if(!isset($_SESSION['activeUser']))
 		      <div class="card-body">
 		        <h5 class="card-title"><?php echo $row['users_name']; ?></h5>
 
-            <input type="text" id="myFriendsName" value="<?php echo $row['users_name']; ?>" style="display: block;">
+            <input type="text" id="myFriendsName" name="friendsName" value="<?php echo $row['users_name']; ?>" style="display: block;">
 
-            <input type="text" id="myFriendsUID" value="<?php echo $row['users_uniqueID']; ?>" style="display: block;">
+            <input type="text" id="myFriendsUID" name="friendsUID" value="<?php echo $row['users_uniqueID']; ?>" style="display: block;">
 
-		        <button id="addFriend" onclick="fetchID('<?php echo $row['users_uniqueID']; ?>')" class="btn btn-success">Add Friends</button>
+		        <button type="submit" id="addFriend" onclick="fetchID('<?php echo $row['users_uniqueID']; ?>')" class="btn btn-success">Add Friends</button>
 		      </div>
 		    </div>
 		  </div>
@@ -113,7 +113,7 @@ if(!isset($_SESSION['activeUser']))
    		$friendList = mysqli_query($config,"SELECT * FROM users_directory WHERE users_email != '{$_SESSION['activeUser']}' AND present_friend_status = 'Friend'");
    		while($row = mysqli_fetch_assoc($friendList)){?>
 
-		  <li class="list-group-item"><img src="<?php echo "avatar/".$row['user_avatar']; ?>" style="width:35px; height: 35px;"><?php echo $row['users_name']; ?> <?php if($row['present_live_status'] == 'Offline'){?><span class="badge rounded-pill bg-danger"><?php echo $row['present_live_status']; ?></span><?php }else{ ?> <span class="badge rounded-pill bg-success"><?php echo $row['present_live_status']; ?></span> <?php  } ?> </li>
+		  <li class="list-group-item" id="friendsList"><img src="<?php echo "avatar/".$row['user_avatar']; ?>" style="width:35px; height: 35px;"><?php echo $row['users_name']; ?> <?php if($row['present_live_status'] == 'Offline'){?><span class="badge rounded-pill bg-danger"><?php echo $row['present_live_status']; ?></span><?php }else{ ?> <span class="badge rounded-pill bg-success"><?php echo $row['present_live_status']; ?></span> <?php  } ?> </li>
 		 <?php } ?>
 		</ul>
     </div>
@@ -131,16 +131,31 @@ if(!isset($_SESSION['activeUser']))
 
 <script type="text/javascript">
 
-  var friendsName = $('#myFriendsName').val();
-  var friendsUID = $('#myFriendsUID').val();
   var activeAdminName = $('#activeUserName').val();
   var activeAdminCode = $('#activeUserID').val();
-
-  var selectedFriend = $('#selectedFriend').val(friendsUID);
+  var friendsUID = $('#myFriendsUID').val();  
 
   function fetchID(friendsUID)
-  {  
-    selectedFriend.value = selectedFriend;  
-    
+  {    
+    $('#selectedFriend').val(friendsUID);
+      $.ajax({
+        method:'POST',
+        url:'addNewFriend.php',
+        data:{
+          active_username: activeAdminName,
+          active_userID: activeAdminCode,
+          connecting_userID : friendsUID
+        },
+        success:function(response)
+        {
+           alert('Data Successfully Inserted');
+        
+        },
+        error:function(xhr,status,error)
+        {
+          alert('Failed with Error:'+error);
+        }
+      });
   }
+
 </script>
