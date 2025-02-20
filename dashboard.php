@@ -72,9 +72,14 @@ if(!isset($_SESSION['activeUser']))
     <!-- section for suggested Friends -->
    <div class="container-fluid mt-4">
    	<h4>Suggested Friends</h4>
+    <form method="POST">
+      <input type="text" id="activeUserName" name="" value="<?php echo $activerUsername; ?>">
+        <input type="text" id="activeUserID" name="" value="<?php echo $activeUserID;  ?>">
+        <input type="text" id="selectedFriend" name="">
    		<div class="row row-cols-1 row-cols-md-6 g-4">
+
    		<?php 
-   		$friendSuggestion = mysqli_query($config,"SELECT * FROM users_directory WHERE users_email != '{$_SESSION['activeUser']}' AND present_friend_status = 'Not a Friend'LIMIT 6;");
+   		$friendSuggestion = mysqli_query($config,"SELECT * FROM users_directory WHERE users_email != '{$_SESSION['activeUser']}' AND present_friend_status = 'Not a Friend' ORDER BY rand() LIMIT 6;");
    		while($row = mysqli_fetch_assoc($friendSuggestion)){?>
 		  <div class="col">
 		    <div class="card h-100">
@@ -86,7 +91,7 @@ if(!isset($_SESSION['activeUser']))
 
             <input type="text" id="myFriendsUID" value="<?php echo $row['users_uniqueID']; ?>" style="display: block;">
 
-		        <button id="addFriend" onclick="fetchID('<?php echo $row['users_uniqueID']; ?>')" class="btn btn-success">Add Friends <?php echo $row['id']; ?></button>
+		        <button id="addFriend" onclick="fetchID('<?php echo $row['users_uniqueID']; ?>')" class="btn btn-success">Add Friends</button>
 		      </div>
 		    </div>
 		  </div>
@@ -95,6 +100,7 @@ if(!isset($_SESSION['activeUser']))
 		</div>
    </div>
     <!-- section for suggested Friends -->
+    </form>
 
     <!--  -->
 
@@ -123,63 +129,18 @@ if(!isset($_SESSION['activeUser']))
   </body>
 </html>
 
-
-<!-- <script type="text/javascript">
-  function fetchID(uid)
-  {
-     var uid = $('#userUID').val();
-    $.ajax({
-      method:'POST',
-      url:'addNewFriend.php',
-      data:{
-        id:uid
-      },
-      success:function(response)
-      {
-        alert('id'+uid);
-      },
-      error:function(xhr,status,error)
-      {
-        alert('Failed');
-      }
-    });
-  }
-</script> -->
-
-
 <script type="text/javascript">
-  function fetchID(uid) {
-    var friendsName = $('#myFriendsName').val();
-    var friendsUID = $('#myFriendsUID').val();
-    
-    $.ajax({
-      method: 'POST',
-      url: 'addNewFriend.php',
-      data: {
-        id: uid
-      },
-      success: function(response) {
-        
-      },
-      error: function(xhr, status, error) {
-        alert('Failed: ' + error);
-      }
-    });
 
-    $.ajax({
-      method:'POST',
-      url:'insert2.php',
-      data:{
-        active_username:friendsName,
-        active_userID:'sd',
-        connecting_username:'dfg',
-        connecting_userID:'sdfsd'
-      },
-      success:function(response)
-      {
-        alert('Friend added with ID: ' + uid);
-        window.location.href='dashboard.php?users_uniqueID='+uid+'';
-      }
-    })
+  var friendsName = $('#myFriendsName').val();
+  var friendsUID = $('#myFriendsUID').val();
+  var activeAdminName = $('#activeUserName').val();
+  var activeAdminCode = $('#activeUserID').val();
+
+  var selectedFriend = $('#selectedFriend').val(friendsUID);
+
+  function fetchID(friendsUID)
+  {  
+    selectedFriend.value = selectedFriend;  
+    
   }
 </script>

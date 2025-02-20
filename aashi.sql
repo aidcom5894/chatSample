@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 20, 2025 at 01:57 PM
+-- Generation Time: Feb 20, 2025 at 05:50 PM
 -- Server version: 8.0.41-0ubuntu0.20.04.1
 -- PHP Version: 7.4.3-4ubuntu2.28
 
@@ -36,20 +36,6 @@ CREATE TABLE `newfriends_list` (
   `connecting_userID` varchar(360) COLLATE utf8mb4_general_ci NOT NULL,
   `connection_Date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `newfriends_list`
---
-
-INSERT INTO `newfriends_list` (`id`, `active_username`, `active_userID`, `connecting_username`, `connecting_userID`, `connection_Date`) VALUES
-(1, '', '', '', '', '2025-02-20 08:14:26'),
-(2, '', '', '', '', '2025-02-20 08:15:47'),
-(3, '', '', '', '', '2025-02-20 08:16:08'),
-(4, '', '', '', '', '2025-02-20 08:16:11'),
-(5, '', '', '', '', '2025-02-20 08:18:11'),
-(6, '', '', '', '', '2025-02-20 08:21:52'),
-(7, '213', '123', '231', '123', '2025-02-20 08:22:25'),
-(8, '', '', '', '', '2025-02-20 08:23:44');
 
 -- --------------------------------------------------------
 
@@ -107,7 +93,7 @@ ALTER TABLE `users_directory`
 -- AUTO_INCREMENT for table `newfriends_list`
 --
 ALTER TABLE `newfriends_list`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users_directory`
