@@ -23,10 +23,12 @@ if(!isset($_SESSION['activeUser']))
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <title>Aashi Chat App</title>
   </head>
@@ -130,32 +132,31 @@ if(!isset($_SESSION['activeUser']))
 </html>
 
 <script type="text/javascript">
+$(document).ready(function(){
+  $('#addFriend').click(function(){
 
-  var activeAdminName = $('#activeUserName').val();
-  var activeAdminCode = $('#activeUserID').val();
-  var friendsUID = $('#myFriendsUID').val();  
+    var activeUser = $('#activeUserName').val();
+    var activeUserID = $('#activeUserID').val();
+    var connectingFriendID = $('#myFriendsUID').val();
 
-  function fetchID(friendsUID)
-  {    
-    $('#selectedFriend').val(friendsUID);
-      $.ajax({
-        method:'POST',
-        url:'addNewFriend.php',
-        data:{
-          active_username: activeAdminName,
-          active_userID: activeAdminCode,
-          connecting_userID : friendsUID
-        },
-        success:function(response)
-        {
-           alert('Data Successfully Inserted');
-        
-        },
-        error:function(xhr,status,error)
-        {
-          alert('Failed with Error:'+error);
-        }
-      });
-  }
-
+    $.ajax({
+      method:'POST',
+      url:'addNewFriend.php',
+      data:{
+        active_username : activeUser,
+        active_userID : activeUserID,
+        connecting_user : connectingFriendID
+      }
+      success:function(response)
+      {
+        alert('Data Successfully Inserted');
+      },
+      error:function(xhr,status,error)
+      {
+        alert('Error: '+error);
+      }
+      
+    });
+  });
+});
 </script>
