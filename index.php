@@ -77,7 +77,7 @@ include('master_pages/ui_masterHeader.php');
   		<form method="POST">
 		  <div class="mb-3">
 		    <label class="form-label"><strong class="text-danger">Email:</strong></label>
-		    <input type="email" class="form-control" id="credential" name="credential" placeholder="Your Registered Email">
+		    <input type="email" class="form-control" id="mobile" name="mobile" placeholder="Your Registered Email">
 		  </div>
 		  <div class="mb-3">
 		    <label class="form-label"><strong class="text-danger">Password:</strong></label>
