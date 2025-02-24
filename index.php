@@ -1,89 +1,103 @@
 <?php 
-include('config.php');
+include('master_pages/ui_masterHeader.php');
 ?>
+    
+  <div class="container" id="desktopView">
+  	<div class="position-absolute top-50 start-50 translate-middle">
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  		<!-- section for describing the message service -->
+  		<?php 
+  		if($config){?>
+  			<div class="alert alert-info text-center" role="alert">AASHI now connected with Server</div>
+  		<?php } else{?>
+  			<div class="alert alert-danger text-center" role="alert">Failed to Connect to Server</div>
+  		<?php } ?>
+  		<div class="card mb-3" style="max-width: 420px; border-style: none;">
+		  <div class="row g-0">
+		    <div class="col-md-4">
+		      <img src="logo.jpg" id="LogoIMG" class="img-fluid rounded-start" alt="aidcomLogo" >
+		    </div>
+		    <div class="col-md-8">
+		      <div class="card-body">
+		        <h5 class="card-title">A.A.S.H.I</h5>
+		        <p class="card-text">AIDCOM Authority Secured Hitch Interface</p>
+		        <p class="card-text"><small class="text-muted">A Unique Chatting Platform</small></p>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+  		<!-- section for describing the message service -->
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <title>Aashi Chat App</title>
-    <!-- AIDCOM AUTHORITY SECURED HITCHED INTERFACE -->
-  </head>
-  <body>
-   	
-   	<div class="container mt-4">
-
-   		<form method="POST">
+  		<form method="POST">
 		  <div class="mb-3">
-		    <label class="form-label">Email:</label>
-		    <input type="text" class="form-control" id="enrollingUserName" name="enrollingUserName">
+		    <label class="form-label"><strong class="text-danger">Email:</strong></label>
+		    <input type="email" class="form-control" id="usersEmail" name="usersEmail" placeholder="Your Registered Email">
+		  </div>
+		  <div class="mb-3">
+		    <label class="form-label"><strong class="text-danger">Password:</strong></label>
+		    <input type="password" class="form-control" id="usersPassword" name="usersPassword" placeholder="Your Password">
 		  </div>
 
-		  <div class="mb-3">
-		    <label class="form-label">Password:</label>
-		    <input type="password" class="form-control" id="enrollingUsersPassword" name="enrollingUsersPassword">
-		  </div>
-
-		  <button type="submit" name="verificationSubmit" class="btn btn-primary">Submit</button>
-
-		   <div class="mb-3">
-		   <a href="register.php"><label class="form-label float-end">Don't have an account? Signup Here</label></a>
+		  <div class="mb-3 text-end">
+		    <small><a href="#">Forgot Password?</a></small>
 		  </div>
 
 		  
+		 
+		  <button type="submit" class="btn btn-primary form-control">Submit</button>
+
+		  <div class="container mt-4 text-center">
+		  	<small >Don't have an account ?<a class="text-primary" href="register" style="text-decoration: none;"> Register Here</a></small>
+		  </div>
 		</form>
-   	</div>
+  	</div>
+  </div>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <!-- mobile section display -->
+  
+  <div class="container" id="mobileView">
+  	<div class="position-absolute top-50 start-50 translate-middle">
 
-  </body>
-</html>
+  		<!-- section for describing the message service -->
+  		<?php 
+  		if($config){?>
+  			<div class="alert alert-info text-center" role="alert">AASHI CHAT APP</div>
+  		<?php } else{?>
+  			<div class="alert alert-danger text-center" role="alert">Server Error</div>
+  		<?php } ?>
+  		<div class="card mb-3" style="max-width: 420px; border-style: none;">
+		  <div class="row g-0">
+		    <div class="col-md-4 text-center">
+		      <img src="logo.jpg" id="LogoIMG" class="img-fluid rounded-start" alt="aidcomLogo" style="height: 85px;">
+		    </div>
+		  </div>
+		</div>
+  		<!-- section for describing the message service -->
 
+  		<form method="POST">
+		  <div class="mb-3">
+		    <label class="form-label"><strong class="text-danger">Email:</strong></label>
+		    <input type="email" class="form-control" id="credential" name="credential" placeholder="Your Registered Email">
+		  </div>
+		  <div class="mb-3">
+		    <label class="form-label"><strong class="text-danger">Password:</strong></label>
+		    <input type="password" class="form-control" id="password" placeholder="Your Password">
+		  </div>
+		  <div class="mb-3 text-end">
+		    <small><a href="#">Lost Password?</a></small>
+		  </div>
+		 
+		  <button type="submit" class="btn btn-primary form-control">Submit</button>
 
+		  <div class="container mt-4 text-center">
+		  	<small>New User ?<a class="text-primary" href="register" style="text-decoration: none;"> Signup</a></small>
+		  </div>
+		</form>
+  	</div>
+  </div>
+
+  <!-- mobile section display -->
+ 
 <?php 
-
-	$enteredEmail = $_POST['enrollingUserName'];
-	$enteredPasswordX = $_POST['enrollingUsersPassword'];
-	
-	$fetchpassword = mysqli_query($config,"SELECT * FROM users_directory WHERE users_email = '$enteredEmail'");
-	while ($row = mysqli_fetch_assoc($fetchpassword))
-	{
-		$fetchedEmail = $row['users_email'];
-		$hashedPassword = $row['users_password'];
-	}
-
-	$enteredPassword = password_verify($_POST['enrollingUsersPassword'], $hashedPassword);
-
-	if(isset($_POST['verificationSubmit']))
-	{
-		if($enteredEmail == $fetchedEmail AND $enteredPasswordX == $enteredPassword)
-		{
-			session_start();
-			$_SESSION['activeUser'] = $enteredEmail;
-			header('Location:dashboard.php');
-		}
-		else
-		{
-			echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-      echo '<script type="text/javascript">';
-      echo 'setTimeout(function () {';
-      echo '  swal({';
-      echo '      title: "Incorrect Credentials!",';
-      echo '      text: "The entered Details are not Correct. Please enter the correct Details to Login to the Portal.",';
-      echo '      icon: "error"';
-      echo '  }).then(function() {';
-      echo '      window.location.href = "index.php";';  
-      echo '  });';
-      echo '}, 100);';
-      echo '</script>';
-		}
-	}
-	
+include('master_pages/ui_masterFooter.php');
 ?>
