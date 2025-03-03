@@ -30,9 +30,9 @@ include('master_pages/ui_masterHeader.php');
   		<!-- section for describing the message service -->
 
   		<form method="POST">
-		  <div class="mb-3">
-		    <label class="form-label"><strong class="text-danger">User's Full Name :</strong></label>
-		    <input type="text" class="form-control" id="userfullName" name="userfullName" placeholder="Your Registered Email" required>
+		   <div class="mb-3">
+		    <label class="form-label"><strong class="text-danger">User's Full Name:</strong></label>
+		    <input type="text" class="form-control" id="userfullName" oninput="changeToTitle()" name="userfullName" placeholder="Your Full Name">
 		  </div>
 		  <div class="mb-3">
 		    <label class="form-label"><strong class="text-danger">User's Email :</strong></label>
@@ -76,8 +76,8 @@ include('master_pages/ui_masterHeader.php');
 
   		<form method="POST">
 		  <div class="mb-3">
-		    <label class="form-label"><strong class="text-danger">Your Name:</strong></label>
-		    <input type="text" class="form-control" id="userfullName" name="userfullName" placeholder="Your Registered Email">
+		    <label class="form-label"><strong class="text-danger">User's Full Name:</strong></label>
+		    <input type="text" class="form-control" id="userfullName" oninput="changeToTitle()" name="userfullName" placeholder="Your Full Name">
 		  </div>
 		  <div class="mb-3">
 		    <label class="form-label"><strong class="text-danger">Email:</strong></label>
@@ -104,4 +104,64 @@ include('master_pages/ui_masterHeader.php');
 
 <?php 
 include('master_pages/ui_masterFooter.php');
+?>
+
+<script type="text/javascript">
+	function changeToTitle()
+	{
+		var usersName = document.getElementById('userfullName');
+		usersName.value = usersName.value.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	}
+</script>
+
+
+
+<?php 
+
+$avatarImages = array('avatar1.png','avatar2.png','avatar3.png','avatar4.png','avatar5.png','avatar6.png','avatar7.png','avatar8.png','avatar9.png','avatar10.png','avatar11.png','avatar12.png','avatar13.png','avatar14.png','avatar15.png','avatar16.png','avatar17.png','avatar18.png','avatar19.png','avatar20.png','avatar21.png','avatar22.png','avatar23.png','avatar24.png','avatar25.png');
+
+$userFullName = $_POST['userfullName'];
+$usersEmail = $_POST['usersEmail'];
+$userPassword = password_hash($_POST['credential'], PASSWORD_DEFAULT);
+$usersAvatar = $avatarImages[array_rand($avatarImages,1)];
+
+$checkExistingUsers = mysqli_query($config,"SELECT * FROM enrolling_users WHERE user_email = '$usersEmail'");
+
+if(isset($_POST['registerUsers']))
+{
+	if(mysqli_num_rows($checkExistingUsers)>0)
+	{
+		echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+    echo '<script type="text/javascript">';
+    echo 'setTimeout(function () {';
+    echo '  swal({';
+    echo '    title: "Duplicate Data Found!",';
+    echo '    text: "The email you are trying to register is already registered in the Database against some other users.Try registering a new users with another email or login to access the portal.",';
+    echo '    icon: "warning",';
+    echo '    button: "OK",';
+    echo '  }).then(function() {';  
+    echo '    window.location.href = "register.php";';      
+    echo '  });';
+    echo '}, 100);';
+    echo '</script>';
+	}
+	else
+	{
+		mysqli_query($config,"INSERT INTO enrolling_users(users_name,user_email,user_password,user_image) VALUES('$userFullName','$usersEmail','$userPassword',$usersAvatar)");
+		echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+    echo '<script type="text/javascript">';
+    echo 'setTimeout(function () {';
+    echo '  swal({';
+    echo '    title: "User Registered Successfully",';
+    echo '    text: "User is now successfully Registered to the Portal.",';
+    echo '    icon: "success",';
+    echo '    button: "OK",';
+    echo '  }).then(function() {';  
+    echo '    window.location.href = "'.$base_url.'";';      
+    echo '  });';
+    echo '}, 100);';
+    echo '</script>';
+	}
+}
+
 ?>
