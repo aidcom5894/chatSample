@@ -1,4 +1,6 @@
 <?php 
+session_start();
+include('config.php');
 include('master_pages/ui_masterHeader.php');
 ?>
     
@@ -40,11 +42,9 @@ include('master_pages/ui_masterHeader.php');
 
 		  <div class="mb-3 text-end">
 		    <small><a href="#">Forgot Password?</a></small>
-		  </div>
-
-		  
+		  </div>		  
 		 
-		  <button type="submit" class="btn btn-primary form-control">Submit</button>
+		  <button type="submit" class="btn btn-primary form-control" name="loginUsers">Submit</button>
 
 		  <div class="container mt-4 text-center">
 		  	<small >Don't have an account ?<a class="text-primary" href="register" style="text-decoration: none;"> Register Here</a></small>
@@ -75,28 +75,50 @@ include('master_pages/ui_masterHeader.php');
   		<!-- section for describing the message service -->
 
   		<form method="POST">
+
 		  <div class="mb-3">
 		    <label class="form-label"><strong class="text-danger">Email:</strong></label>
-		    <input type="email" class="form-control" id="mobile" name="mobile" placeholder="Your Registered Email">
+		    <input type="email" class="form-control" id="usersEmail" name="usersEmail" name="mobile" placeholder="Your Registered Email">
 		  </div>
+
 		  <div class="mb-3">
 		    <label class="form-label"><strong class="text-danger">Password:</strong></label>
-		    <input type="password" class="form-control" id="password" placeholder="Your Password">
+		    <input type="password" class="form-control" id="usersPassword" name="usersPassword" placeholder="Your Password">
 		  </div>
+
 		  <div class="mb-3 text-end">
 		    <small><a href="#">Lost Password?</a></small>
 		  </div>
 		 
-		  <button type="submit" class="btn btn-primary form-control">Submit</button>
+		  <button type="submit" class="btn btn-primary form-control" name="loginUsers">Submit</button>
 
 		  <div class="container mt-4 text-center">
 		  	<small>New User ?<a class="text-primary" href="register" style="text-decoration: none;"> Signup</a></small>
 		  </div>
+
 		</form>
+
+
   	</div>
   </div>
 
   <!-- mobile section display -->
+
+
+
+<?php 
+$usersEmail = $_POST['usersEmail'];
+$usersCredentials = $_POST['usersPassword'];
+
+if(isset($_POST['loginUsers']))
+{	
+	session_start();
+	$_SESSION['activeUsers'] = $usersEmail;
+	echo "<script>window.location.href='dashboard.php'</script>";
+}
+
+?>
+
  
 <?php 
 include('master_pages/ui_masterFooter.php');

@@ -11,11 +11,11 @@ $config = mysqli_connect($hostname,$username,$password,$dbname);
 
 if($config)
 {
-	echo "";
+	echo "Connected";
 }
 else
 {
-	echo "";
+	echo "Database Connection Failed with Error:".mysqli_connect_error();
 }
 
 ?>
