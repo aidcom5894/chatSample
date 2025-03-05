@@ -11,7 +11,7 @@ $config = mysqli_connect($hostname,$username,$password,$dbname);
 
 if($config)
 {
-	echo "Connected";
+	echo "";
 }
 else
 {

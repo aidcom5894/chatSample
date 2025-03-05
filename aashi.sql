@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 24, 2025 at 07:17 PM
+-- Generation Time: Mar 05, 2025 at 08:11 PM
 -- Server version: 8.0.41-0ubuntu0.22.04.1
 -- PHP Version: 8.2.27
 
@@ -29,11 +29,19 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `enrolling_users` (
   `id` int NOT NULL,
-  `users_name` varchar(360) COLLATE utf8mb4_general_ci NOT NULL,
-  `user_password` varchar(360) COLLATE utf8mb4_general_ci NOT NULL,
-  `user_image` varchar(360) COLLATE utf8mb4_general_ci NOT NULL,
+  `users_name` varchar(360) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_email` varchar(360) COLLATE utf8mb4_general_ci NOT NULL,
+  `user_password` varchar(360) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_image` varchar(360) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `onboarding_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `enrolling_users`
+--
+
+INSERT INTO `enrolling_users` (`id`, `users_name`, `user_email`, `user_password`, `user_image`, `onboarding_date`) VALUES
+(1, 'Vivek Robin Kujur', 'robinkujur@aidcom.in', '$2y$10$Ir2uwKGvRSdcLNXMwCDtN.e0Jja/316G5xNAjYR.uE2vqfAC/zzpe', 'avatar15.png', '2025-03-05 19:16:53');
 
 --
 -- Indexes for dumped tables
@@ -53,7 +61,7 @@ ALTER TABLE `enrolling_users`
 -- AUTO_INCREMENT for table `enrolling_users`
 --
 ALTER TABLE `enrolling_users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

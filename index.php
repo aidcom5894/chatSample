@@ -114,7 +114,7 @@ if(isset($_POST['loginUsers']))
 {	
 	session_start();
 	$_SESSION['activeUsers'] = $usersEmail;
-	echo "<script>window.location.href='dashboard.php'</script>";
+	echo "<script>window.location.href='dashboard'</script>";
 }
 
 ?>
