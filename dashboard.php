@@ -104,11 +104,27 @@ sdf
 
 			<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
 			  <div class="offcanvas-header">
-			    <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+			    <h5 id="offcanvasRightLabel">Friends Online</h5>
 			    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 			  </div>
 			  <div class="offcanvas-body">
-			    ...
+
+			      <div class="row">
+					    <div class="col">
+					      <a class="navbar-brand" href="#">
+      <img src="https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg" alt="" width="30" height="24">
+    </a>
+					    </div>
+					    <div class="col-6">
+					     <button type="button" class="btn btn-primary position-relative">
+  Profile
+  <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+    <span class="visually-hidden">New alerts</span>
+  </span>
+</button>
+					    </div>
+					  </div>
+
 			  </div>
 			</div>
 			<!-- section for chatting -->
