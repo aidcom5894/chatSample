@@ -3,19 +3,17 @@
 session_start();
 include('config.php');
 
-if(!isset($_SESSION['activeUsers']))
+if(!isset($_SESSION['activeUser']))
 {
 	session_start();
-	unset($_SESSION['activeUsers']);
-	session_unset();
-	session_destroy();
+	unset($_SESSION['activeUser']);
 	header('Location:logout.php');
 }
 
-$fetchSessionUser = mysqli_query($config,"SELECT * FROM enrolling_users WHERE user_email='{$_SESSION['activeUsers']}'");
+$fetchSessionUser = mysqli_query($config,"SELECT * FROM enrolling_users WHERE user_email='{$_SESSION['activeUser']}'");
 while($row = mysqli_fetch_assoc($fetchSessionUser))
 {
-	$activeUsersName = $row['users_name'];
+	$activeUserName = $row['users_name'];
 }
 
 ?>
@@ -29,8 +27,16 @@ while($row = mysqli_fetch_assoc($fetchSessionUser))
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <link rel="stylesheet" href="owlcarousel/dist/assets/owl.carousel.min.css">
+		<link rel="stylesheet" href="owlcarousel/dist/assets/owl.theme.default.min.css">
+
+    <title>Chat App</title>
+
+    <style type="text/css">
+    	
+    </style>
   </head>
+
   <body>
     
     <!-- section for navbar starts here -->
@@ -60,7 +66,7 @@ while($row = mysqli_fetch_assoc($fetchSessionUser))
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><?php echo "Welcome, ".$activeUsersName; ?></a>
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><?php echo "Welcome, ".$activeUserName; ?></a>
         </li>
       </ul>
 
@@ -76,7 +82,90 @@ while($row = mysqli_fetch_assoc($fetchSessionUser))
 </nav>
     <!-- section for navbar ends here -->
 
-sdf
+    	<div class="container mt-4 text-center text-primary">
+    		<small>Suggested Friends List</small>
+    	</div>
+    <!-- section for displaying friends List Starts here -->
+	  	<div class="container owl-carousel mt-4">
+
+
+			  <div>
+			  	<div class="card" style="width: 18rem;">
+					  <img src="https://images.pexels.com/photos/1107717/pexels-photo-1107717.jpeg?auto=compress&cs=tinysrgb&w=400" class="card-img-top" alt="...">
+					  <div class="card-body">
+					    <h5 class="card-title">Friend List 1</h5>
+					    <a href="#" class="btn btn-primary">Add as Friend</a>
+					  </div>
+					</div>
+			  </div>
+
+			  <!-- dummy section -->
+			  <div>
+			  	<div class="card" style="width: 18rem;">
+					  <img src="https://images.pexels.com/photos/1107717/pexels-photo-1107717.jpeg?auto=compress&cs=tinysrgb&w=400" class="card-img-top" alt="...">
+					  <div class="card-body">
+					    <h5 class="card-title">Friend List 1</h5>
+					    <a href="#" class="btn btn-primary">Add as Friend</a>
+					  </div>
+					</div>
+			  </div>
+			  
+			  <div>
+			  	<div class="card" style="width: 18rem;">
+					  <img src="https://images.pexels.com/photos/1107717/pexels-photo-1107717.jpeg?auto=compress&cs=tinysrgb&w=400" class="card-img-top" alt="...">
+					   <div class="card-body">
+					    <h5 class="card-title">Friend List 1</h5>
+					    <a href="#" class="btn btn-primary">Add as Friend</a>
+					  </div>
+					</div>
+			  </div>
+			  
+			  <div>
+			  	<div class="card" style="width: 18rem;">
+					  <img src="https://images.pexels.com/photos/1107717/pexels-photo-1107717.jpeg?auto=compress&cs=tinysrgb&w=400" class="card-img-top" alt="...">
+					  <div class="card-body">
+					    <h5 class="card-title">Friend List 1</h5>
+					    <a href="#" class="btn btn-primary">Add as Friend</a>
+					  </div>
+					</div>
+			  </div>
+			  
+			  <div>
+			  	<div class="card" style="width: 18rem;">
+					  <img src="https://images.pexels.com/photos/1107717/pexels-photo-1107717.jpeg?auto=compress&cs=tinysrgb&w=400" class="card-img-top" alt="...">
+					  <div class="card-body">
+					    <h5 class="card-title">Card title</h5>
+					    <a href="#" class="btn btn-primary">Go somewhere</a>
+					  </div>
+					</div>
+			  </div>
+			  
+			  <div>
+			  	<div class="card" style="width: 18rem;">
+					  <img src="https://images.pexels.com/photos/1107717/pexels-photo-1107717.jpeg?auto=compress&cs=tinysrgb&w=400" class="card-img-top" alt="...">
+					  <div class="card-body">
+					    <h5 class="card-title">Card title</h5>
+					    <a href="#" class="btn btn-primary">Go somewhere</a>
+					  </div>
+					</div>
+			  </div>
+			  
+			  <div>
+			  	<div class="card" style="width: 18rem;">
+					  <img src="https://images.pexels.com/photos/1107717/pexels-photo-1107717.jpeg?auto=compress&cs=tinysrgb&w=400" class="card-img-top" alt="...">
+					  <div class="card-body">
+					    <h5 class="card-title">Card title</h5>
+					    <a href="#" class="btn btn-primary">Go somewhere</a>
+					  </div>
+					</div>
+			  </div>
+			  
+			  
+			  <!-- dummy section -->
+
+			</div>
+    <!-- section for displaying friends List Ends here -->
+
 
 
 <div class="fixed-bottom">
@@ -141,5 +230,20 @@ sdf
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+		<script src="owlcarousel/dist/owl.carousel.min.js"></script>
+
   </body>
 </html>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $(".owl-carousel").owlCarousel();
+});
+
+
+</script>

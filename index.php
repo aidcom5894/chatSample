@@ -110,12 +110,49 @@ include('master_pages/ui_masterHeader.php');
 $usersEmail = $_POST['usersEmail'];
 $usersCredentials = $_POST['usersPassword'];
 
-if(isset($_POST['loginUsers']))
-{	
-	session_start();
-	$_SESSION['activeUsers'] = $usersEmail;
-	echo "<script>window.location.href='dashboard'</script>";
+$fetchExistingUser = mysqli_query($config,"SELECT * FROM enrolling_users");
+while ($row = mysqli_fetch_assoc($fetchExistingUser))
+{
+	$fetchPassword = $row['user_password'];
 }
+
+if(isset($_POST['loginUsers']))
+{
+	if(mysqli_num_rows($fetchExistingUser)>0 AND password_verify($usersCredentials, $fetchPassword))
+	{
+		session_start();
+		$_SESSION['activeUser'] = $usersEmail;
+		echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+    echo '<script type="text/javascript">';
+    echo 'setTimeout(function () {';
+    echo '  swal({';
+    echo '      title: "Welcome Onboard!",';
+    echo '      text: "Welcome to Chat, Now chat with your loved ones and connect with them securely",';
+    echo '      icon: "success"';
+    echo '  }).then(function() {';
+    echo '      window.location.href = "dashboard";';  
+    echo '  });';
+    echo '}, 100);';
+    echo '</script>';
+	}
+	else
+	{
+		echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+    echo '<script type="text/javascript">';
+    echo 'setTimeout(function () {';
+    echo '  swal({';
+    echo '      title: "Wrong Credentials!",';
+    echo '      text: "Failed to Verify the Existing User Details",';
+    echo '      icon: "error"';
+    echo '  }).then(function() {';
+    echo '      window.location.href = "'.$base_url.'";';  
+    echo '  });';
+    echo '}, 100);';
+    echo '</script>';
+	}
+}
+
+
 
 ?>
 
