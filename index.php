@@ -119,7 +119,7 @@ while ($row = mysqli_fetch_assoc($fetchExistingUser))
 if(isset($_POST['loginUsers']))
 {
 
-	if(mysqli_num_rows($fetchExistingUser)>0 AND password_verify($usersCredentials,$fetchPassword) !== FALSE)
+	if(mysqli_num_rows($fetchExistingUser)>0 AND password_verify($usersCredentials,$fetchPassword))
 	{
 		session_start();
 		$_SESSION['activeUser'] = $usersEmail;
