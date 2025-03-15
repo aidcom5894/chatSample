@@ -126,6 +126,10 @@ $enrollingUsersAvatar = $usersAvatar[array_rand($usersAvatar,1)];
 
 $matchEntry = mysqli_query($config,"SELECT * FROM enrolling_users WHERE user_email = '$enrollingUsersEmail'");
 
+$uniqueCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+$charactersArray = str_split($uniqueCharacters); 
+shuffle($charactersArray);
+$randomCharacters = implode('', array_slice($charactersArray, 0, 8));
 
 if(isset($_POST['registerUsers']))
 {
@@ -144,7 +148,7 @@ if(isset($_POST['registerUsers']))
 	}
 	else
 	{
-		mysqli_query($config,"INSERT INTO enrolling_users(users_name,user_email,user_password,user_image) VALUES('$enrollingUserName','$enrollingUsersEmail','$enrollingUsersCred','$enrollingUsersAvatar')");
+		mysqli_query($config,"INSERT INTO enrolling_users(users_name,user_email,user_password,user_image,user_uniqueID) VALUES('$enrollingUserName','$enrollingUsersEmail','$enrollingUsersCred','$enrollingUsersAvatar','$randomCharacters')");
 		echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
 		echo '<script type="text/javascript">';
 		echo 'swal({

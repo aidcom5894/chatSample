@@ -110,7 +110,7 @@ include('master_pages/ui_masterHeader.php');
 $usersEmail = $_POST['usersEmail'];
 $usersCredentials = $_POST['usersPassword'];
 
-$fetchExistingUser = mysqli_query($config,"SELECT * FROM enrolling_users");
+$fetchExistingUser = mysqli_query($config,"SELECT * FROM enrolling_users WHERE user_email='$usersEmail'");
 while ($row = mysqli_fetch_assoc($fetchExistingUser))
 {
 	$fetchPassword = $row['user_password'];
@@ -118,7 +118,8 @@ while ($row = mysqli_fetch_assoc($fetchExistingUser))
 
 if(isset($_POST['loginUsers']))
 {
-	if(mysqli_num_rows($fetchExistingUser)>0 AND password_verify($usersCredentials, $fetchPassword))
+
+	if(mysqli_num_rows($fetchExistingUser)>0 AND password_verify($usersCredentials,$fetchPassword) !== FALSE)
 	{
 		session_start();
 		$_SESSION['activeUser'] = $usersEmail;
